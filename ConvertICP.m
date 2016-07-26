@@ -170,7 +170,15 @@ while i < size(list, 1)
             
             % If the input fields are empty, ask for them
             if energy == 0
-                energy = str2double(inputdlg('Enter the beam energy:'));
+                
+                % Use ICP energy if specified
+                if isfield(data, 'menergy') && ~isempty(data.menergy)
+                    [tokens, ~] = regexp(data.menergy, '([0-9]+)', ...
+                        'tokens', 'match');
+                    energy = str2double(tokens{1}{1});
+                else
+                    energy = str2double(inputdlg('Enter the beam energy:'));
+                end
             end
             if isempty(wedge)
                 wedge = inputdlg('Enter the wedge name (leave empty if open):');
@@ -216,7 +224,8 @@ while i < size(list, 1)
             end
          
             % Clear temporary variables
-            clear data depth energy fid fieldsize j outfile results wedge;
+            clear data depth energy fid fieldsize j outfile tokens ...
+                results wedge;
             
         % Catch errors
         catch
@@ -235,7 +244,7 @@ end
 % Log completion
 if exist('Event', 'file') == 2
     Event(sprintf(['Directory %s scan completed successfully in %0.3f', ...
-        ' seconds, finding %i IC Profiler files'], ...
+        ' seconds, finding %i IC Profiler file(s)'], ...
         path, toc(t), c));
 end
 
