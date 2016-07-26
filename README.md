@@ -7,11 +7,15 @@ ConvertICP searches a provided directory for SNC IC Profiler save files and save
 
 Note that the SSD is retrieved from the IC Profiler file header. To expedite collection of the remaining beam parameters, the file name maybe stored in the following format (see the function ParseFileName for more information or to change the format):
 
-`X<Energy>_<WedgeName>_<FieldSize in cm>_<Depth in mm>.prm`
+```matlab
+X<Energy>_<WedgeName>_<FieldSize in cm>_<Depth in mm>.prm
+```
 
 An example is shown below:
 
-`X06_EDW15_05x05_015.prm`
+```matlab
+X06_EDW15_05x05_015.prm
+```
 
 Below are some examples of how to execute this function:
 
