@@ -168,7 +168,7 @@ while i < size(list, 1)
             % Try to get energy, field size, depth from filename
             [energy, wedge, fieldsize, depth] = ParseFileName(list(i).name);
             
-            % If the input fields are empty, ask for them
+            % If the Energy field is empty
             if energy == 0
                 
                 % Use ICP energy if specified
@@ -176,10 +176,14 @@ while i < size(list, 1)
                     [tokens, ~] = regexp(data.menergy, '([0-9]+)', ...
                         'tokens', 'match');
                     energy = str2double(tokens{1}{1});
+                
+                % Otherwise ask for it
                 else
                     energy = str2double(inputdlg('Enter the beam energy:'));
                 end
             end
+            
+            % If the wedge field is empty
             if isempty(wedge)
                 wedge = inputdlg('Enter the wedge name (leave empty if open):');
             end
